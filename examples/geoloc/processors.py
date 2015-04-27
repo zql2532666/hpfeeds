@@ -179,6 +179,16 @@ def shockpot_event(identifier, payload, gi):
 
     return create_message('shockpot.events', identifier, gi, src_ip=dec.source_ip, dst_ip=dest_ip)
 
+def elastichoney_events(identifier, payload, gi):
+    try:
+        dec = ezdict(json.loads(str(payload)))
+    except:
+        print 'exception processing elastichoney alert'
+        traceback.print_exc()
+        return None
+
+    return create_message('elastichoney.events', identifier, gi, src_ip=dec.source, dst_ip=dec.honeypot)
+
 def p0f_event(identifier, payload, gi):
     try:
         dec = ezdict(json.loads(str(payload)))
